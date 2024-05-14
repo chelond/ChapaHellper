@@ -1,10 +1,9 @@
-
+from bot.misc.env import TgKeys
 import requests
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Bot, Dispatcher, executor, types, utils
 
 YANDEX_API_KEY = 'AQVNzFFRC8TTZEJpL1iJsWM_5RrVJgwM2gm3FFDe'
-
-
+bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
 
 def gpt(msg):
     # запрос в Yandex GPT по API
@@ -43,5 +42,24 @@ def register_user_handlers(dp: Dispatcher):
     async def echo(message: types.Message):
         yandex_response = gpt(message.text)
         await message.answer(yandex_response)
+
+    @dp.message_handler(commands='file')
+    async def file(message: types.Message):
+        buttons = [
+            [
+                {"text": "Алехин", "callback_data": "OS"}
+            ]
+        ]
+        await message.answer(text='Выбери предмет/препода который хочешь найти', reply_markup={"inline_keyboard": buttons})
+
+    @dp.callback_query_handler(text="OS")
+    async def buttonOS_handler(call: types.CallbackQuery):
+        document = open('bot/handlers/user/file/Sbornik_LR_po_OS_IB.doc', 'rb')
+        await bot.send_document(call.message.chat.id, document=document, caption="Алехин")
+
+
+
+
+
 
 
