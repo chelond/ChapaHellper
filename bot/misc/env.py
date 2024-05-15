@@ -3,5 +3,5 @@ from typing import Final
 
 
 class TgKeys:
-    TOKEN = '6634986285:AAG2qA1juYTlaGuJzCjwvvhDFk_GKlZXSV0'
+    TOKEN = '7052991353:AAGlO6EP5fRJun_pTVNHC3NMGRsSzwXDP1Y'
 
